@@ -12,7 +12,6 @@ import com.devtides.coroutinesretrofit.view.NewsListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
     lateinit var viewModel: ListViewModel
     private val newsListAdapter = NewsListAdapter()
 
@@ -32,7 +31,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.newsArticles.observe(this, Observer { article ->
-
+            loading_view.visibility = View.GONE
+            newsList.visibility = View.VISIBLE
+            newsListAdapter.onAddNewsItem(article)
+            newsList.smoothScrollToPosition(0)
         })
     }
 }
